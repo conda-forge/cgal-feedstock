@@ -8,8 +8,7 @@ cmake \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DWITH_CGAL_ImageIO=OFF -DWITH_CGAL_Qt5=OFF \
   ..
-
-make install
+make install -j${CPU_COUNT}
 
 
 # language bindings are in a separate repo without releases
@@ -24,6 +23,6 @@ cmake \
   -DCOMMON_LIBRARIES_PATH=${PREFIX}/lib \
   -DBUILD_JAVA=OFF \
   ..
-make
-
+make -j${CPU_COUNT}
 rm ${SP_DIR}/CGAL/*PYTHON_wrap.cxx
+
