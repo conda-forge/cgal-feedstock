@@ -19,10 +19,8 @@ mkdir -p build && cd build
 cmake \
   -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-  -DPYTHON_OUTDIR_PREFIX=${SP_DIR} \
-  -DCOMMON_LIBRARIES_PATH=${PREFIX}/lib \
   -DBUILD_JAVA=OFF \
   ..
-make -j${CPU_COUNT}
-rm ${SP_DIR}/CGAL/*PYTHON_wrap.cxx
+make install -j${CPU_COUNT}
+DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib ctest --output-on-failure -j${CPU_COUNT}
 

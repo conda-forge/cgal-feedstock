@@ -10,7 +10,7 @@ source:
   md5: 2780a9c046cbbf26838b8275d2719d5c
 
 build:
-  number: 0
+  number: 1
 # fails with mpir as replacement of gmp on windows
   skip: true  # [win]
 
@@ -24,6 +24,7 @@ requirements:
     - zlib 1.2.*
     - eigen
     - swig
+    - numpy
   run:
     - python
     - boost 1.61.*
