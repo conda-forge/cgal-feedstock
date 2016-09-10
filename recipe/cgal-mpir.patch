@@ -25,7 +25,7 @@ index af30329..3da53ea 100644
  namespace CGAL{
  namespace RS_AK1{
 diff --git a/CGAL_Core/include/CGAL/CORE/CoreAux_impl.h b/CGAL_Core/include/CGAL/CORE/CoreAux_impl.h
-index 901ec82..a04e797 100644
+index cfb72ec..5a5b2c6 100644
 --- CGAL_Core/include/CGAL/CORE/CoreAux_impl.h
 +++ CGAL_Core/include/CGAL/CORE/CoreAux_impl.h
 @@ -40,7 +40,7 @@
@@ -68,10 +68,23 @@ index 11f1add..7e0824d 100644
    endif()
  
 -  find_library(GMP_LIBRARIES NAMES gmp libgmp-10
-+  find_library(GMP_LIBRARIES NAMES mpir 
++  find_library(GMP_LIBRARIES NAMES mpir
      HINTS ENV GMP_LIB_DIR
            ENV GMP_DIR
            ${CGAL_INSTALLATION_PACKAGE_DIR}/auxiliary/gmp/lib
+diff --git a/Number_types/include/CGAL/GMP/Gmpzf_type.h b/Number_types/include/CGAL/GMP/Gmpzf_type.h
+index b5e943e..660d3c1 100644
+--- Number_types/include/CGAL/GMP/Gmpzf_type.h
++++ Number_types/include/CGAL/GMP/Gmpzf_type.h
+@@ -82,7 +82,7 @@ public:
+ 
+   // exponent type
+   // --------------------
+-  typedef long Exponent; // may overflow, but if it does, the mantissa is
++  typedef signed long Exponent; // may overflow, but if it does, the mantissa is
+                          // potentially too large to be useful, anyway;
+                          // still, repeated squaring of a power of two
+                          // quickly brings this type to its limits...
 diff --git a/Number_types/include/CGAL/gmp.h b/Number_types/include/CGAL/gmp.h
 index bac2fcb..0bb3837 100644
 --- Number_types/include/CGAL/gmp.h
