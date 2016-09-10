@@ -8,11 +8,16 @@ source:
   fn: CGAL-{{ version }}.zip
   url: https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-{{ version }}/CGAL-{{ version }}.zip
   md5: 2780a9c046cbbf26838b8275d2719d5c
+  patches:
+    - cgal-mpir.patch  # [win]
 
 build:
   number: 1
-# fails with mpir as replacement of gmp on windows
-  skip: true  # [win]
+  features:
+    - vc9  # [win and py27]
+    - vc10  # [win and py34]
+    - vc14  # [win and py35]
+  skip: true  # [win and (not py35)]
 
 requirements:
   build:
@@ -20,7 +25,7 @@ requirements:
     - python
     - cmake
     - boost 1.61.*
-    - mpfr  # [unix]
+    - mpfr
     - zlib 1.2.*
     - eigen
     - swig
@@ -28,7 +33,7 @@ requirements:
   run:
     - python
     - boost 1.61.*
-    - mpfr  # [unix]
+    - mpfr
 
 test:
   commands:
