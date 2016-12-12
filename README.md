@@ -11,6 +11,18 @@ Summary: Computational Geometry Algorithms Library
 
 
 
+Current build status
+====================
+
+Linux: [![Circle CI](https://circleci.com/gh/conda-forge/cgal-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/cgal-feedstock)
+OSX: [![TravisCI](https://travis-ci.org/conda-forge/cgal-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/cgal-feedstock)
+Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
+
+Current release info
+====================
+Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/cgal/badges/version.svg)](https://anaconda.org/conda-forge/cgal)
+Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/cgal/badges/downloads.svg)](https://anaconda.org/conda-forge/cgal)
+
 Installing cgal
 ===============
 
@@ -31,7 +43,6 @@ It is possible to list all of the versions of `cgal` available on your platform 
 ```
 conda search cgal --channel conda-forge
 ```
-
 
 
 About conda-forge
@@ -67,18 +78,6 @@ Terminology
 
 **conda-forge** - the place where the feedstock and smithy live and work to
                   produce the finished article (built conda distributions)
-
-Current build status
-====================
-
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/cgal-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/cgal-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/cgal-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/cgal-feedstock)
-Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
-
-Current release info
-====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/cgal/badges/version.svg)](https://anaconda.org/conda-forge/cgal)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/cgal/badges/downloads.svg)](https://anaconda.org/conda-forge/cgal)
 
 
 Updating cgal-feedstock
