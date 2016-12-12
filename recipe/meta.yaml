@@ -24,7 +24,6 @@ requirements:
     - zlib 1.2.*
     - eigen
     - swig
-    - numpy
   run:
     - python
     - boost 1.62.*

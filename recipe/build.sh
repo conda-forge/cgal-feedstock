@@ -15,6 +15,10 @@ make install -j${CPU_COUNT}
 # language bindings are in a separate repo without releases
 git clone https://github.com/CGAL/cgal-swig-bindings.git
 cd cgal-swig-bindings
+
+# this test requires numpy and we do not want to build-depend on it
+rm examples/python/test_aabb2.py
+
 mkdir -p build && cd build
 
 cmake \
