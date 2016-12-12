@@ -10,7 +10,7 @@ source:
   sha256: 34669adf0378e30555df28cc4eef3ef7f46f35c984f4c99a3a16417035dfe083
 
 build:
-  number: 0
+  number: 1
 # fails with mpir as replacement of gmp on windows
   skip: true  # [win]
 
@@ -19,7 +19,7 @@ requirements:
     - toolchain
     - python
     - cmake
-    - boost 1.61.*
+    - boost 1.62.*
     - mpfr
     - zlib 1.2.*
     - eigen
@@ -27,7 +27,7 @@ requirements:
     - numpy
   run:
     - python
-    - boost 1.61.*
+    - boost 1.62.*
     - mpfr
 
 test:
@@ -41,9 +41,9 @@ test:
 about:
   home: http://www.cgal.org/
   license: GPL3/LGPL3
+  license_file: LICENSE
   summary: Computational Geometry Algorithms Library
 
 extra:
   recipe-maintainers:
     - xantares
-
