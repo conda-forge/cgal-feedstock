@@ -8,10 +8,6 @@ source:
   fn: CGAL-{{ version }}.zip
   url: https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-{{ version }}/CGAL-{{ version }}.zip
   sha256: 34669adf0378e30555df28cc4eef3ef7f46f35c984f4c99a3a16417035dfe083
-  patches:
-    - cgal-mpir.patch  # [win]
-    # https://github.com/CGAL/cgal/pull/1759
-    - fix-exponent-type.patch
 
 build:
   number: 1
