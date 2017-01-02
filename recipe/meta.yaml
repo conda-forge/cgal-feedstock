@@ -12,7 +12,6 @@ source:
 build:
   number: 1
   features:
-    - vc9  # [win and py27]
     - vc10  # [win and py34]
     - vc14  # [win and py35]
   # http://doc.cgal.org/latest/Manual/installation.html#seccompilers
@@ -25,7 +24,6 @@ requirements:
     - cmake
     - boost 1.62.*
     - mpfr
-    - zlib 1.2.*
     - eigen
     - swig
   run:

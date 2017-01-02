@@ -20,10 +20,9 @@ git clone https://github.com/CGAL/cgal-swig-bindings.git csb
 cd csb
 
 :: https://github.com/CGAL/cgal-swig-bindings/pull/79
-:: https://github.com/CGAL/cgal-swig-bindings/pull/80
 git remote add xantares https://github.com/xantares/cgal-swig-bindings.git
 git fetch xantares
-git cherry-pick e21de9d b38eab6
+git cherry-pick b38eab6
 
 :: this test requires numpy and we do not want to build-depend on it
 del examples\python\test_aabb2.py
