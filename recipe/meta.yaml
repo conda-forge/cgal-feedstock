@@ -27,14 +27,14 @@ requirements:
     - toolchain
     - python
     - cmake
-    - boost 1.62.*
+    - boost 1.63.*
     - mpfr
     - zlib 1.2.*
     - eigen
     - swig
   run:
     - python
-    - boost 1.62.*
+    - boost 1.63.*
     - mpfr
 
 test:
