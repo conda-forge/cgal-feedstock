@@ -21,13 +21,13 @@ requirements:
     - toolchain
     - python
     - cmake
-    - boost 1.62.*
+    - boost 1.63.*
     - mpfr
     - eigen
     - swig
   run:
     - python
-    - boost 1.62.*
+    - boost 1.63.*
     - mpfr
 
 test:
