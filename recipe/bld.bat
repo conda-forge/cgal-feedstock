@@ -18,11 +18,7 @@ cd ..\..
 :: language bindings are in a separate repo without releases
 git clone https://github.com/CGAL/cgal-swig-bindings.git csb
 cd csb
-
-:: https://github.com/CGAL/cgal-swig-bindings/pull/79
-git remote add xantares https://github.com/xantares/cgal-swig-bindings.git
-git fetch xantares
-git cherry-pick b38eab6
+git checkout 97d63c8
 
 :: this test requires numpy and we do not want to build-depend on it
 del examples\python\test_aabb2.py
