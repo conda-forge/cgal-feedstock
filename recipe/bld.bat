@@ -26,7 +26,7 @@ del examples\python\test_aabb2.py
 :: https://github.com/CGAL/cgal-swig-bindings/issues/77
 del examples\python\test_polyline_simplification_2.py
 
-mkdir build && cd build
+mkdir bld && cd bld
 
 cmake -LAH -G"NMake Makefiles"                ^
   -DCMAKE_BUILD_TYPE="%CMAKE_CONFIG%"         ^
