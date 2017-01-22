@@ -12,9 +12,9 @@ source:
 build:
   number: 2
   features:
-    - vc14  # [win and py35]
+    - vc14  # [win and py>=35]
   # mpfr only supports vc14
-  skip: true  # [win and py < 35]
+  skip: true  # [win and py<35]
 
 requirements:
   build:
@@ -22,7 +22,6 @@ requirements:
     - python
     - cmake
     - boost 1.63.*
-
     - mpfr
     - eigen
     - swig
