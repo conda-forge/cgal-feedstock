@@ -22,13 +22,13 @@ requirements:
     - python
     - cmake
     - boost-cpp 1.63.*
-    - mpfr
+    - mpfr 3.*
     - eigen
     - swig
   run:
     - python
     - boost-cpp 1.63.*
-    - mpfr
+    - mpfr 3.*
 
 test:
   commands:
