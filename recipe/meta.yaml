@@ -10,7 +10,7 @@ source:
   sha256: 34669adf0378e30555df28cc4eef3ef7f46f35c984f4c99a3a16417035dfe083
 
 build:
-  number: 3
+  number: 4
   features:
     - vc14  # [win and py>=35]
   # mpfr only supports vc14
@@ -22,13 +22,13 @@ requirements:
     - python
     - cmake
     - boost-cpp 1.63.*
-    - mpfr
+    - mpfr 3.*
     - eigen
     - swig
   run:
     - python
     - boost-cpp 1.63.*
-    - mpfr
+    - mpfr 3.*
 
 test:
   commands:
