@@ -1,4 +1,4 @@
-{% set version = "4.9.1" %}
+{% set version = "4.10" %}
 
 package:
   name: cgal
@@ -7,7 +7,7 @@ package:
 source:
   fn: CGAL-{{ version }}.zip
   url: https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-{{ version }}/CGAL-{{ version }}.zip
-  sha256: e66c5073513e136ed4d3ee7525cd2cd67cb04f9df9e9ae4fe70d4bc3e800e884
+  sha256: 1fde30ae16b6a31cd1aae9196d0952a1ffc23c9de0a9c319ce6cba3164292218
 
 build:
   number: 0
