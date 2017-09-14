@@ -18,7 +18,7 @@ cd ..\..
 :: language bindings are in a separate repo without releases
 git clone https://github.com/CGAL/cgal-swig-bindings.git csb
 cd csb
-git checkout 4b06ea3
+git checkout 59e2452
 
 :: this test requires numpy and we do not want to build-depend on it
 del examples\python\test_aabb2.py
