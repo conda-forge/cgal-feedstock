@@ -5,14 +5,13 @@ package:
   version: {{ version }}
 
 source:
-  fn: CGAL-{{ version }}.zip
   url: https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-{{ version }}/CGAL-{{ version }}.zip
   sha256: e74cb61b780f2fd04924761b6f7fd90c73df9997a670fab730c82236f00f1984
 
 build:
-  number: 0
+  number: 1
   features:
-    - vc14  # [win and py>=35]
+    - vc14  # [win and (py35 or py36)]
   # mpfr only supports vc14
   skip: true  # [win and py<35]
 
@@ -21,23 +20,25 @@ requirements:
     - toolchain
     - python
     - cmake
-    - boost-cpp 1.64.*
-    - mpfr 3.*
+    - boost-cpp 1.65.1
+    - mpfr 3.1.*
     - eigen
     - swig
 
   run:
     - python
-    - boost-cpp 1.64.*
-    - mpfr 3.*
+    - boost-cpp 1.65.1
+    - mpfr 3.1.*
 
 test:
+  imports:
+    - CGAL
   commands:
     - test -f ${PREFIX}/include/CGAL/AABB_tree.h  # [unix]
     - test -f ${PREFIX}/lib/libCGAL${SHLIB_EXT}  # [unix]
     - if not exist %LIBRARY_INC%\CGAL\AABB_tree.h exit 1  # [win]
-  imports:
-    - CGAL
+    - conda inspect linkages $PKG_NAME  # [not win]
+    - conda inspect objects $PKG_NAME  # [osx]
 
 about:
   home: http://www.cgal.org/
