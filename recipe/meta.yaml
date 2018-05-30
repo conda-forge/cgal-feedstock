@@ -20,14 +20,14 @@ requirements:
     - toolchain
     - python
     - cmake
-    - boost-cpp 1.67.0
+    - boost-cpp 1.66.0
     - mpfr 4.0.*
     - eigen
     - swig
 
   run:
     - python
-    - boost-cpp 1.67.0
+    - boost-cpp 1.66.0
     - mpfr 4.0.*
 
 test:
