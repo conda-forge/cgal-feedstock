@@ -1,4 +1,4 @@
-{% set version = "4.11" %}
+{% set version = "4.12" %}
 
 package:
   name: cgal
@@ -6,10 +6,10 @@ package:
 
 source:
   url: https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-{{ version }}/CGAL-{{ version }}.zip
-  sha256: e74cb61b780f2fd04924761b6f7fd90c73df9997a670fab730c82236f00f1984
+  sha256: a1fb463b76d5f5ff7677127708fa98d6ab4f31c22b7ef2cf1ce88419af809dc2
 
 build:
-  number: 2
+  number: 0
   features:
     - vc14  # [win and (py35 or py36)]
   # mpfr only supports vc14
@@ -21,14 +21,14 @@ requirements:
     - python
     - cmake
     - boost-cpp 1.66.0
-    - mpfr 3.1.*
+    - mpfr 4.0.*
     - eigen
     - swig
 
   run:
     - python
     - boost-cpp 1.66.0
-    - mpfr 3.1.*
+    - mpfr 4.0.*
 
 test:
   imports:
@@ -48,3 +48,4 @@ about:
 extra:
   recipe-maintainers:
     - xantares
+    - tadeu
