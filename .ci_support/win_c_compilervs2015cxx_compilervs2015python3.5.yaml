@@ -1,0 +1,22 @@
+boost_cpp:
+- 1.67.0
+c_compiler:
+- vs2015
+cxx_compiler:
+- vs2015
+mpfr:
+- '4'
+pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
+  mpfr:
+    max_pin: x
+  python:
+    max_pin: x.x
+    min_pin: x.x
+python:
+- '3.5'
+zip_keys:
+- - python
+  - c_compiler
+  - cxx_compiler

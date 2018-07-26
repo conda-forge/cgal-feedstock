@@ -14,14 +14,16 @@ Summary: Computational Geometry Algorithms Library
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/cgal-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/cgal-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/cgal-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/cgal-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/cgal-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/cgal-feedstock/branch/master)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/cgal-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/cgal-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/cgal-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/cgal-feedstock)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/cgal-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/cgal-feedstock/branch/master)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/cgal/badges/version.svg)](https://anaconda.org/conda-forge/cgal)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/cgal/badges/downloads.svg)](https://anaconda.org/conda-forge/cgal)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-cgal-green.svg)](https://anaconda.org/conda-forge/cgal) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/cgal.svg)](https://anaconda.org/conda-forge/cgal) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/cgal.svg)](https://anaconda.org/conda-forge/cgal) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/cgal.svg)](https://anaconda.org/conda-forge/cgal) |
 
 Installing cgal
 ===============
