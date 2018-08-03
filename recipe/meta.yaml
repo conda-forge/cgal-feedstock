@@ -9,26 +9,25 @@ source:
   sha256: a1fb463b76d5f5ff7677127708fa98d6ab4f31c22b7ef2cf1ce88419af809dc2
 
 build:
-  number: 0
-  features:
-    - vc14  # [win and (py35 or py36)]
+  number: 1
   # mpfr only supports vc14
   skip: true  # [win and py<35]
 
 requirements:
   build:
-    - toolchain
-    - python
-    - cmake
-    - boost-cpp 1.66.0
-    - mpfr 4.0.*
-    - eigen
     - swig
-
+    - cmake
+    - eigen
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - python
+    - boost-cpp
+    - mpfr
   run:
     - python
-    - boost-cpp 1.66.0
-    - mpfr 4.0.*
+    - boost-cpp
+    - mpfr
 
 test:
   imports:
