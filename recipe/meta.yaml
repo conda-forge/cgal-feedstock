@@ -36,6 +36,8 @@ test:
     - test -f ${PREFIX}/include/CGAL/AABB_tree.h  # [unix]
     - test -f ${PREFIX}/lib/libCGAL${SHLIB_EXT}  # [unix]
     - if not exist %LIBRARY_INC%\CGAL\AABB_tree.h exit 1  # [win]
+    - ! test -f ${PREFIX}/lib/cmake/CGAL/FindGLEW.cmake  # [not win]
+    - if exist %LIBRARY_LIB%\cmake\CGAL\FindGLEW.cmake exit 1  # [win]
     - conda inspect linkages $PKG_NAME  # [not win]
     - conda inspect objects $PKG_NAME  # [osx]
 
