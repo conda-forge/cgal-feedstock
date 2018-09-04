@@ -35,3 +35,6 @@ cmake \
   ..
 make install -j${CPU_COUNT}
 DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib ctest --output-on-failure -j${CPU_COUNT}
+
+mkdir ${PREFIX}/lib/CGAL/cmake-extra
+mv ${PREFIX}/lib/cmake/CGAL/Find*.cmake ${PREFIX}/lib/CGAL/cmake-extra

@@ -40,3 +40,6 @@ cmake --build . --config %CMAKE_CONFIG% --target INSTALL
 if errorlevel 1 exit 1
 ctest --output-on-failure
 if errorlevel 1 exit 1
+
+mkdir "%LIBRARY_LIB%\CGAL\cmake-extra"
+move "%LIBRARY_LIB%\cmake\CGAL\Find*.cmake" "%LIBRARY_LIB%\CGAL\cmake-extra"

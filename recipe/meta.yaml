@@ -9,7 +9,7 @@ source:
   sha256: a1fb463b76d5f5ff7677127708fa98d6ab4f31c22b7ef2cf1ce88419af809dc2
 
 build:
-  number: 1
+  number: 2
   # mpfr only supports vc14
   skip: true  # [win and py<35]
 
@@ -37,7 +37,9 @@ test:
     - test -f ${PREFIX}/lib/libCGAL${SHLIB_EXT}  # [unix]
     - if not exist %LIBRARY_INC%\CGAL\AABB_tree.h exit 1  # [win]
     - ! test -f ${PREFIX}/lib/cmake/CGAL/FindGLEW.cmake  # [not win]
+    - test -f ${PREFIX}/lib/CGAL/cmake-extra/FindGLEW.cmake  # [not win]
     - if exist %LIBRARY_LIB%\cmake\CGAL\FindGLEW.cmake exit 1  # [win]
+    - if not exist %LIBRARY_LIB%\CGAL\cmake-extra\FindGLEW.cmake exit 1  # [win]
     - conda inspect linkages $PKG_NAME  # [not win]
     - conda inspect objects $PKG_NAME  # [osx]
 
