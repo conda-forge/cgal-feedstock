@@ -9,7 +9,7 @@ source:
   sha256: a1fb463b76d5f5ff7677127708fa98d6ab4f31c22b7ef2cf1ce88419af809dc2
 
 build:
-  number: 1
+  number: 1001
   # mpfr only supports vc14
   skip: true  # [win and py<35]
 
