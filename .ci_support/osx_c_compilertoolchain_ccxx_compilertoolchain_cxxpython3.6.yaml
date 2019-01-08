@@ -1,7 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 boost_cpp:
-- 1.67.0
+- 1.68.0
 build_number_decrement:
 - '1000'
 c_compiler:
