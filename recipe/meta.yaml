@@ -1,4 +1,4 @@
-{% set version = "4.12" %}
+{% set version = "4.13" %}
 
 package:
   name: cgal
@@ -6,10 +6,10 @@ package:
 
 source:
   url: https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-{{ version }}/CGAL-{{ version }}.zip
-  sha256: a1fb463b76d5f5ff7677127708fa98d6ab4f31c22b7ef2cf1ce88419af809dc2
+  sha256: e1feafd2a5b1d4cfc20facae8ad901e5ed003e7168279fb798dbc60f0d1753dc
 
 build:
-  number: 1
+  number: 0
   # mpfr only supports vc14
   skip: true  # [win and py<35]
 
