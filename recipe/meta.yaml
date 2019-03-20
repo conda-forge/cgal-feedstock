@@ -33,6 +33,8 @@ requirements:
 test:
   imports:
     - CGAL
+    - CGAL.CGAL_Kernel
+    - CGAL.CGAL_Triangulation_2
   commands:
     - test -f ${PREFIX}/include/CGAL/AABB_tree.h  # [unix]
     - test -f ${PREFIX}/lib/libCGAL${SHLIB_EXT}  # [unix]
