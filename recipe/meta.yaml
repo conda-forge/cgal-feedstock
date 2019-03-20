@@ -10,8 +10,9 @@ source:
 
 build:
   number: 1001
-  # mpfr only supports vc14
-  skip: true  # [win and py<35]
+  # - mpfr only supports vc14
+  # - SWIG bindings have a python linkage problem in macOS
+  skip: true  # [(win and py<35) or osx]
 
 requirements:
   build:
