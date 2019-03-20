@@ -28,11 +28,13 @@ rm examples/python/test_polyline_simplification_2.py
 
 mkdir build && cd build
 
+export LINK_PYTHON_LIBRARY=ON
 if [ `uname` == Darwin ]; then
   # Fixes link issues with python lib in macOS
   # See https://github.com/conda-forge/cgal-feedstock/pull/41
   # and https://blog.tim-smith.us/2015/09/python-extension-modules-os-x/
   export "LDFLAGS=-undefined dynamic_lookup $LDFLAGS"
+  export LINK_PYTHON_LIBRARY=OFF
 fi
 
 cmake \
@@ -40,7 +42,7 @@ cmake \
   -DCMAKE_PREFIX_PATH=${PREFIX} \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DBUILD_JAVA=OFF \
-  -DLINK_PYTHON_LIBRARY=OFF \
+  -DLINK_PYTHON_LIBRARY=${LINK_PYTHON_LIBRARY} \
   ..
 make install -j${CPU_COUNT}
 DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib ctest --output-on-failure -j${CPU_COUNT}
