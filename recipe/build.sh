@@ -32,7 +32,7 @@ if [ `uname` == Darwin ]; then
   # Fixes link issues with python lib in macOS
   # See https://github.com/conda-forge/cgal-feedstock/pull/41
   # and https://blog.tim-smith.us/2015/09/python-extension-modules-os-x/
-  export "LDFLAGS=-bundle -undefined dynamic_lookup $LDFLAGS"
+  export "LDFLAGS=-undefined dynamic_lookup $LDFLAGS"
 fi
 
 cmake \
