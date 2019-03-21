@@ -1,34 +1,33 @@
-{% set version = "4.12" %}
+{% set version = "4.13" %}
 
 package:
   name: cgal
   version: {{ version }}
 
 source:
-  url: https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-{{ version }}/CGAL-{{ version }}.zip
-  sha256: a1fb463b76d5f5ff7677127708fa98d6ab4f31c22b7ef2cf1ce88419af809dc2
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/d708146e14c9ec70ea5af4c9c8934742089253f9.zip
+  sha256: 4b939eb18d97b7f2c003aba6bd53732809f99636c4a35d143ef174c218bf90d4
+  patches:
+    - 0001-Fix-installation-of-python-modules.patch
 
 build:
-  number: 1001
-  # - mpfr only supports vc14
-  # - SWIG bindings have a python linkage problem in macOS
+  number: 0
   skip: true  # [(win and py<35) or osx]
 
 requirements:
   build:
-    - swig
-    - cmake
-    - eigen
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - cmake
+    - eigen
+    - ninja  # [win]
+    - swig
   host:
+    - cgal-cpp {{ version }}
     - python
-    - boost-cpp
-    - mpfr
   run:
+    - cgal-cpp {{ version }}
     - python
-    - boost-cpp
-    - mpfr
 
 test:
   imports:
