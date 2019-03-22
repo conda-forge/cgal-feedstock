@@ -5,14 +5,14 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/CGAL/cgal-swig-bindings/archive/d708146e14c9ec70ea5af4c9c8934742089253f9.zip
-  sha256: 4b939eb18d97b7f2c003aba6bd53732809f99636c4a35d143ef174c218bf90d4
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/756186a21e8c78841cdb1238644abd06798b480e.zip
+  sha256: 5b595cfe6aa20a604992c86ca5bada6e2596c027cf35f18bd3a82df5c8712c55
   patches:
-    - 0001-Fix-installation-of-python-modules.patch
+    - 0001-Fix-linking-with-python-in-macOS.patch
 
 build:
-  number: 0
-  skip: true  # [(win and py<35) or osx]
+  number: 1
+  skip: true  # [(win and py<35)]
 
 requirements:
   build:
