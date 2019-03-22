@@ -9,10 +9,11 @@ source:
   sha256: 4b939eb18d97b7f2c003aba6bd53732809f99636c4a35d143ef174c218bf90d4
   patches:
     - 0001-Fix-installation-of-python-modules.patch
+    - 0001-Fix-linking-with-python-in-macOS.patch  # [osx]
 
 build:
   number: 0
-  skip: true  # [(win and py<35) or osx]
+  skip: true  # [(win and py<35)]
 
 requirements:
   build:

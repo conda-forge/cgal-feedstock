@@ -1,0 +1,134 @@
+From b814562bd07d1f1eaf58a301dc5b1589f66315f6 Mon Sep 17 00:00:00 2001
+From: "Edson Tadeu M. Manoel" <tadeu@esss.co>
+Date: Wed, 20 Mar 2019 16:26:29 -0300
+Subject: [PATCH] Fix linking with python in macOS
+
+See https://blog.tim-smith.us/2015/09/python-extension-modules-os-x/
+and https://github.com/conda-forge/cgal-feedstock/pull/41
+---
+ CMakeLists.txt                       | 18 +++++++++++-------
+ cmake/Modules/SWIG_CGAL_Macros.cmake | 14 ++++++++------
+ 2 files changed, 19 insertions(+), 13 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c28f40b..67c023b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -12,7 +12,11 @@ if (POLICY CMP0042)
+   cmake_policy (SET CMP0042 NEW)
+ endif()
+ 
+-option ( LINK_PYTHON_LIBRARY "Link against python libraries" ON )
++if ( APPLE )
++  option ( LINK_PYTHON_LIBRARY "Link against python libraries - NOT RECOMMENDED" OFF )
++else ()
++  option ( LINK_PYTHON_LIBRARY "Link against python libraries" ON )
++endif ()
+ 
+ if (POLICY CMP0078)
+   cmake_policy (SET CMP0078 NEW)
+@@ -40,21 +44,21 @@ if ( CGAL_FOUND )
+       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
+     endif()
+   endif()
+-  
++
+   if (SWIG_FOUND)
+     SET (UseSWIG ON)
+-    INCLUDE(${SWIG_USE_FILE})  
++    INCLUDE(${SWIG_USE_FILE})
+ 
+     SET(CMAKE_SWIG_FLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}")
+     include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+     if (${BUILD_RUBY})
+       FIND_PACKAGE(Ruby)
+-      if (NOT RUBY_FOUND)  
++      if (NOT RUBY_FOUND)
+         message(WARNING "Ruby has not been found, CGAL-bindings for Ruby will not be generated.")
+         SET(BUILD_RUBY OFF)
+       endif()
+-    else()  
++    else()
+       message(STATUS "BUILD_RUBY is set to OFF: no CGAL-bindings for Ruby will be generated.")
+     endif()
+     if (${BUILD_PYTHON})
+@@ -64,7 +68,7 @@ if ( CGAL_FOUND )
+         SET(BUILD_PYTHON OFF)
+         message(WARNING "Python has not been found, CGAL-bindings for Python will not be generated.")
+       endif()
+-    else()  
++    else()
+       message(STATUS "BUILD_PYTHON is set to OFF: no CGAL-bindings for Python will be generated.")
+     endif()
+     if (${BUILD_JAVA})
+@@ -73,7 +77,7 @@ if ( CGAL_FOUND )
+         message(WARNING "JNI has not been found, CGAL-bindings for Java will not be generated.")
+         SET(BUILD_JAVA OFF)
+       endif()
+-    else()  
++    else()
+       message(STATUS "BUILD_JAVA is set to OFF: no CGAL-bindings for Java will be generated.")
+     endif()
+ 
+diff --git a/cmake/Modules/SWIG_CGAL_Macros.cmake b/cmake/Modules/SWIG_CGAL_Macros.cmake
+index 5225d71..137cf54 100644
+--- a/cmake/Modules/SWIG_CGAL_Macros.cmake
++++ b/cmake/Modules/SWIG_CGAL_Macros.cmake
+@@ -16,16 +16,19 @@ MACRO(ADD_SWIG_CGAL_LIBRARY libname)
+   include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${COMMON_LIBRARIES_PATH}")
+   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${COMMON_LIBRARIES_PATH}")
+-  EXTRACT_CPP_AND_LIB_FILES(${ARGN}) 
++  EXTRACT_CPP_AND_LIB_FILES(${ARGN})
+   add_library(${libname} SHARED ${source_files})
+   target_link_libraries(${libname} ${libstolinkwith})
++  if(APPLE)
++    set_target_properties(${libname} PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
++  endif()
+   install (TARGETS ${libname} RUNTIME DESTINATION bin
+                               LIBRARY DESTINATION lib${LIB_SUFFIX}
+                               ARCHIVE DESTINATION lib${LIB_SUFFIX})
+ ENDMACRO()
+ 
+ MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
+-  
++
+   if (BUILD_JAVA AND JAVA_INCLUDE_PATH)
+     SET (MODULENAME "CGAL_${packagename}")
+     SET (INTERFACE_FILES  "CGAL_${packagename}.i")
+@@ -44,7 +47,7 @@ MACRO(ADD_SWIG_CGAL_JAVA_MODULE packagename)
+     EXTRACT_CPP_AND_LIB_FILES(${ARGN})
+ 
+     SET_SOURCE_FILES_PROPERTIES(${INTERFACE_FILES} PROPERTIES CPLUSPLUS ON)
+-    
++
+     #Build bindings for java
+     INCLUDE_DIRECTORIES(BEFORE ${JAVA_INCLUDE_PATH} ${JAVA_INCLUDE_PATH2})
+     LINK_DIRECTORIES(${JAVALIBPATH})
+@@ -70,7 +73,7 @@ ENDMACRO(ADD_SWIG_CGAL_JAVA_MODULE)
+ MACRO(ADD_SWIG_CGAL_PYTHON_MODULE packagename)
+   SET (MODULENAME "CGAL_${packagename}")
+   SET (INTERFACE_FILES  "CGAL_${packagename}.i")
+-  
++
+   INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+   #recover cpp files to be compiled
+@@ -113,7 +116,7 @@ ENDMACRO(ADD_SWIG_CGAL_PYTHON_MODULE)
+ MACRO(ADD_SWIG_CGAL_RUBY_MODULE packagename)
+   SET (MODULENAME "CGAL_${packagename}")
+   SET (INTERFACE_FILES  "CGAL_${packagename}.i")
+-  
++
+   INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ 
+   #recover cpp files to be compiled
+@@ -147,4 +150,3 @@ MACRO(ADD_SWIG_CGAL_RUBY_MODULE packagename)
+     SWIG_LINK_LIBRARIES(${MODULENAME}_ruby ${libstolinkwith} ${RUBY_LIBRARY})
+   endif()
+ ENDMACRO(ADD_SWIG_CGAL_RUBY_MODULE)
+-
+-- 
+2.20.1.windows.1
+
