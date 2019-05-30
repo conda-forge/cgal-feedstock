@@ -1,17 +1,15 @@
-{% set version = "4.13" %}
+{% set version = "4.14" %}
 
 package:
   name: cgal
   version: {{ version }}
 
 source:
-  url: https://github.com/CGAL/cgal-swig-bindings/archive/756186a21e8c78841cdb1238644abd06798b480e.zip
-  sha256: 5b595cfe6aa20a604992c86ca5bada6e2596c027cf35f18bd3a82df5c8712c55
-  patches:
-    - 0001-Fix-linking-with-python-in-macOS.patch
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/55635605ed9287f963800d2e0dc5dac6bd3fa899.zip
+  sha256: efa305ae2f9c58fd8009f438900925cbf000d8f6789dd08551423640e06ab50a
 
 build:
-  number: 1
+  number: 0
   skip: true  # [(win and py<35)]
 
 requirements:
