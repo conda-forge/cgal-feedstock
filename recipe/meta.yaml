@@ -42,6 +42,7 @@ test:
 about:
   home: http://www.cgal.org/
   license: GPL3/LGPL3
+  license_file: LICENSE_1_0.txt
   summary: Computational Geometry Algorithms Library
 
 extra:
