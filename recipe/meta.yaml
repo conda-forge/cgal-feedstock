@@ -1,12 +1,12 @@
-{% set version = "4.14.1" %}
+{% set version = "5.0" %}
 
 package:
   name: cgal
   version: {{ version }}
 
 source:
-  url: https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-{{ version }}/CGAL-{{ version }}.tar.xz
-  sha256: d4ec2528b88a7c3a07b0b86db96c216822f85b951bf4bc7f9d1f26bf6c369afe
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/a04a496e41a5509327bac4a9226c84bd5dcbeaee.zip
+  sha256: ef987d034fa65227624030cf7b3917bdae9f7dc6ee8ae7337f4380cc5119373f
 
 build:
   number: 0
