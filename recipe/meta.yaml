@@ -1,4 +1,4 @@
-{% set version = "5.0" %}
+{% set version = "4.14.1" %}
 
 package:
   name: cgal
