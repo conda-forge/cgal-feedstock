@@ -9,7 +9,7 @@ source:
   sha256: efa305ae2f9c58fd8009f438900925cbf000d8f6789dd08551423640e06ab50a
 
 build:
-  number: 0
+  number: 1
   skip: true  # [(win and py<35)]
 
 requirements:
@@ -22,9 +22,11 @@ requirements:
     - swig
   host:
     - cgal-cpp {{ version }}
+    - numpy
     - python
   run:
     - cgal-cpp {{ version }}
+    - {{ pin_compatible('numpy') }}
     - python
 
 test:
@@ -32,6 +34,7 @@ test:
     - CGAL
     - CGAL.CGAL_Kernel
     - CGAL.CGAL_Triangulation_2
+    - CGAL.CGAL_AABB_tree
   commands:
     - test -f ${PREFIX}/include/CGAL/AABB_tree.h  # [unix]
     - test -f ${PREFIX}/lib/libCGAL${SHLIB_EXT}  # [unix]
