@@ -1,4 +1,4 @@
-{% set version = "4.14" %}
+{% set version = "4.14.1" %}
 
 package:
   name: cgal
@@ -9,7 +9,7 @@ source:
   sha256: efa305ae2f9c58fd8009f438900925cbf000d8f6789dd08551423640e06ab50a
 
 build:
-  number: 1
+  number: 0
   skip: true  # [(win and py<35)]
 
 requirements:
