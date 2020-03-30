@@ -1,12 +1,14 @@
-{% set version = "4.14" %}
+{% set version = "5.0.1" %}
 
 package:
   name: cgal
   version: {{ version }}
 
 source:
-  url: https://github.com/CGAL/cgal-swig-bindings/archive/55635605ed9287f963800d2e0dc5dac6bd3fa899.zip
-  sha256: efa305ae2f9c58fd8009f438900925cbf000d8f6789dd08551423640e06ab50a
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/e14208e0f076c03a5c8ac69b430dad43f38c7ab4.zip
+  sha256: ac51635c172c2b07af887847cf82118df388d0af6096777848595de7ff755105
+  patches:  # [osx]
+    - 0001-Fix-macOS-builds-that-need-the-CMP0025-policy.patch  # [osx]
 
 build:
   number: 0
@@ -22,9 +24,11 @@ requirements:
     - swig
   host:
     - cgal-cpp {{ version }}
+    - numpy
     - python
   run:
     - cgal-cpp {{ version }}
+    - {{ pin_compatible('numpy') }}
     - python
 
 test:
@@ -32,18 +36,23 @@ test:
     - CGAL
     - CGAL.CGAL_Kernel
     - CGAL.CGAL_Triangulation_2
+    - CGAL.CGAL_AABB_tree
   commands:
     - test -f ${PREFIX}/include/CGAL/AABB_tree.h  # [unix]
-    - test -f ${PREFIX}/lib/libCGAL${SHLIB_EXT}  # [unix]
     - if not exist %LIBRARY_INC%\CGAL\AABB_tree.h exit 1  # [win]
     - conda inspect linkages $PKG_NAME  # [not win]
     - conda inspect objects $PKG_NAME  # [osx]
 
 about:
   home: http://www.cgal.org/
-  license: GPL3/LGPL3
+  license: GPL-3.0-or-later
+  license_file:
+    - LICENSE.GPL
+    - LICENSE.COMMERCIAL
   summary: Computational Geometry Algorithms Library
 
 extra:
   recipe-maintainers:
     - tadeu
+    - lrineau
+    - maxGimeno
