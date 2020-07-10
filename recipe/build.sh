@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# this test requires numpy and we do not want to build-depend on it
-rm examples/python/test_aabb2.py
-
 # https://github.com/CGAL/cgal-swig-bindings/issues/77
 rm examples/python/test_polyline_simplification_2.py
 

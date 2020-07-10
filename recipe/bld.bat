@@ -1,6 +1,3 @@
-REM this test requires numpy and we do not want to build-depend on it
-del examples\python\test_aabb2.py
-
 REM https://github.com/CGAL/cgal-swig-bindings/issues/77
 del examples\python\test_polyline_simplification_2.py
 
