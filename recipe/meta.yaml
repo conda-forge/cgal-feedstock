@@ -40,8 +40,6 @@ test:
   commands:
     - test -f ${PREFIX}/include/CGAL/AABB_tree.h  # [unix]
     - if not exist %LIBRARY_INC%\CGAL\AABB_tree.h exit 1  # [win]
-    - conda inspect linkages $PKG_NAME  # [not win]
-    - conda inspect objects $PKG_NAME  # [osx]
 
 about:
   home: http://www.cgal.org/
