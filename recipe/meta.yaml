@@ -7,8 +7,6 @@ package:
 source:
   url: https://github.com/CGAL/cgal-swig-bindings/archive/bec76f24b51dd4babe57e6bc6d6c521b1708a8f2.zip
   sha256: 0bebd08c10f4aa7ee672f74a45800b9ecbc30501be57bf76309bc97467fa180d
-  patches:  # [osx]
-    - 0001-Fix-macOS-builds-that-need-the-CMP0025-policy.patch  # [osx]
 
 build:
   number: 0
