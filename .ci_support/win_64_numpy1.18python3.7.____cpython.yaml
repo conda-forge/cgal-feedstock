@@ -3,13 +3,13 @@ CMAKE_GENERATOR:
 c_compiler:
 - vs2017
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
 - vs2017
 numpy:
-- '1.16'
+- '1.18'
 pin_run_as_build:
   python:
     min_pin: x.x
