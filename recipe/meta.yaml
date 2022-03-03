@@ -17,6 +17,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - eigen
+    - make  # [unix]
     - ninja  # [win]
     - swig
   host:
