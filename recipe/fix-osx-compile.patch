@@ -1,0 +1,13 @@
+diff --git a/SWIG_CGAL/Common/Macros.h b/SWIG_CGAL/Common/Macros.h
+index be97588b..106c8141 100644
+--- a/SWIG_CGAL/Common/Macros.h
++++ b/SWIG_CGAL/Common/Macros.h
+@@ -141,7 +141,7 @@ struct SWIG_CGAL_Extract_data<T,false>
+ template <class T>
+ struct SWIG_CGAL_Extract_data<T,true>
+ {
+-  typedef typename boost::remove_cv< typename boost::remove_reference<T>::type >::type I;
++  typedef typename std::remove_cv< typename std::remove_reference<T>::type >::type I;
+   typedef typename std::iterator_traits<I>::reference reference;
+   reference operator()(I t){return *t;}
+ };
