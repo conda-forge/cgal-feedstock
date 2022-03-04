@@ -11,6 +11,7 @@ cmake ${CMAKE_ARGS} \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DBUILD_JAVA=OFF \
   -DCMAKE_INSTALL_LIBDIR=lib \
+  -DPython_EXECUTABLE=$PREFIX/bin/python \
   ..
 
 cmake --build . --config Release
