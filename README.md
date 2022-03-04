@@ -216,6 +216,3 @@ Feedstock Maintainers
 * [@maxGimeno](https://github.com/maxGimeno/)
 * [@tadeu](https://github.com/tadeu/)
 
-
-<!-- dummy commit to enable rerendering -->
-
