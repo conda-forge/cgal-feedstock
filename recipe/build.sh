@@ -12,6 +12,7 @@ cmake ${CMAKE_ARGS} \
   -DBUILD_JAVA=OFF \
   -DCMAKE_INSTALL_LIBDIR=lib \
   -DPython_EXECUTABLE=$PREFIX/bin/python \
+  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
   ..
 
 cmake --build . --config Release
