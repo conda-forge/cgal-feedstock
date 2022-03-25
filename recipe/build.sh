@@ -5,16 +5,17 @@ rm examples/python/test_polyline_simplification_2.py
 
 mkdir build && cd build
 
-export CMAKE_CONFIG=Release
-
-cmake -LAH -G"${CMAKE_GENERATOR}" \
-  -DCMAKE_BUILD_TYPE=${CMAKE_CONFIG} \
+cmake ${CMAKE_ARGS} \
+  -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_PREFIX_PATH=${PREFIX} \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DBUILD_JAVA=OFF \
-  -DCMAKE_VERBOSE_MAKEFILE=ON \
+  -DCMAKE_INSTALL_LIBDIR=lib \
+  -DPython_EXECUTABLE=$PREFIX/bin/python \
+  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
   ..
 
-make VERBOSE=1 install -j${CPU_COUNT}
+cmake --build . --config Release
+cmake --build . --config Release --target install
 
 DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib ctest --output-on-failure -j${CPU_COUNT}

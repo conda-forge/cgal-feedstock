@@ -1,18 +1,17 @@
-{% set version = "5.0.1" %}
+{% set version = "5.4" %}
 
 package:
   name: cgal
   version: {{ version }}
 
 source:
-  url: https://github.com/CGAL/cgal-swig-bindings/archive/e14208e0f076c03a5c8ac69b430dad43f38c7ab4.zip
-  sha256: ac51635c172c2b07af887847cf82118df388d0af6096777848595de7ff755105
-  patches:  # [osx]
-    - 0001-Fix-macOS-builds-that-need-the-CMP0025-policy.patch  # [osx]
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/5750b98dd1f760ba5ab24662957c1e1438bde8bb.zip
+  sha256: e31e0253e5251d80cff36b219794894ce73b53d5cdd0f8fcae73180e0326704e
+  patches:
+    - osx-fix.patch  # [osx]
 
 build:
-  number: 3
-  skip: true  # [(win and py<35)]
+  number: 0
 
 requirements:
   build:
@@ -20,6 +19,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - eigen
+    - make  # [unix]
     - ninja  # [win]
     - swig
   host:
