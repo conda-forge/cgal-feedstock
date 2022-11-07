@@ -1,17 +1,17 @@
-{% set version = "5.4" %}
+{% set version = "5.5.1.post202210141207" %}
 
 package:
   name: cgal
   version: {{ version }}
 
 source:
-  url: https://github.com/CGAL/cgal-swig-bindings/archive/5750b98dd1f760ba5ab24662957c1e1438bde8bb.zip
-  sha256: e31e0253e5251d80cff36b219794894ce73b53d5cdd0f8fcae73180e0326704e
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 77ee66c677282428e09fc583aa4717fd29d2046fb7f8eb17dee8f5ad49aeb597
   patches:
     - osx-fix.patch  # [osx]
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
