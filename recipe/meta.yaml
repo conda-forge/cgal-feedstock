@@ -1,8 +1,9 @@
 {% set version = "5.5.1.post202210141207" %}
+{% set base_verson = ".".join(version.split(".")[:-1]) if version.split(".")[-1].startswith("post") else version %}
 
 package:
   name: cgal
-  version: {{ version }}
+  version: {{ base_verson }}
 
 source:
   url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v{{ version }}.tar.gz
@@ -26,11 +27,11 @@ requirements:
     - ninja  # [win]
     - swig
   host:
-    - cgal-cpp {{ version }}
+    - cgal-cpp {{ base_verson }}
     - numpy
     - python
   run:
-    - cgal-cpp {{ version }}
+    - cgal-cpp {{ base_verson }}
     - {{ pin_compatible('numpy') }}
     - python
 
