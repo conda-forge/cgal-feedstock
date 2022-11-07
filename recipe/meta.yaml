@@ -23,7 +23,8 @@ requirements:
     - eigen
     - make  # [unix]
     - ninja  # [win]
-    - swig
+    # https://github.com/conda-forge/cgal-feedstock/pull/75#issuecomment-1305660884
+    - swig <4.1
   host:
     - cgal-cpp {{ base_verson }}
     - numpy
