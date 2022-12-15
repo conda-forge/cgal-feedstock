@@ -9,8 +9,6 @@ package:
 source:
   url: https://github.com/CGAL/cgal-swig-bindings/archive/{{ version }}.tar.gz
   sha256: 2bd804c589b08ac16c5eb277965aa5f172890b8c1577ddebd0482af98dc57c36
-  patches:
-    - osx-fix.patch  # [osx]
 
 build:
   number: 0
