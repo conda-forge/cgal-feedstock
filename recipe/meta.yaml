@@ -32,7 +32,6 @@ requirements:
   run:
     - boost-cpp
     - cgal-cpp {{ base_verson }}
-    - gmp
     - mpfr
     - {{ pin_compatible('numpy') }}
     - python
