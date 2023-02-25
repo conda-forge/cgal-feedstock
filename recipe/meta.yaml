@@ -1,4 +1,4 @@
-{% set version = "5.5.1.post202210141207" %}
+{% set version = "5.5.1.post202302251605" %}
 {% set base_verson = ".".join(version.split(".")[:-1]) if version.split(".")[-1].startswith("post") else version %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 77ee66c677282428e09fc583aa4717fd29d2046fb7f8eb17dee8f5ad49aeb597
+  sha256: 5d260b7cecd2766be727170bf6a89014915e700e69cb1bda36bc7e6c5d784314
 
 build:
   number: 0
