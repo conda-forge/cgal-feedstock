@@ -1,5 +1,3 @@
-REM https://github.com/CGAL/cgal-swig-bindings/issues/77
-del examples\python\test_polyline_simplification_2.py
 
 mkdir build && cd build
 

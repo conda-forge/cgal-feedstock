@@ -1,14 +1,13 @@
-{% set version = "5.4" %}
+{% set version = "5.5.1.post202302251605" %}
+{% set base_verson = ".".join(version.split(".")[:-1]) if version.split(".")[-1].startswith("post") else version %}
 
 package:
   name: cgal
-  version: {{ version }}
+  version: {{ base_verson }}
 
 source:
-  url: https://github.com/CGAL/cgal-swig-bindings/archive/5750b98dd1f760ba5ab24662957c1e1438bde8bb.zip
-  sha256: e31e0253e5251d80cff36b219794894ce73b53d5cdd0f8fcae73180e0326704e
-  patches:
-    - osx-fix.patch  # [osx]
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 5d260b7cecd2766be727170bf6a89014915e700e69cb1bda36bc7e6c5d784314
 
 build:
   number: 0
@@ -24,13 +23,16 @@ requirements:
     - eigen
     - make  # [unix]
     - ninja  # [win]
-    - swig
+    # https://github.com/conda-forge/cgal-feedstock/pull/75#issuecomment-1305660884
+    - swig <4.1
   host:
-    - cgal-cpp {{ version }}
+    - cgal-cpp {{ base_verson }}
     - numpy
     - python
   run:
-    - cgal-cpp {{ version }}
+    - boost-cpp
+    - cgal-cpp {{ base_verson }}
+    - mpfr
     - {{ pin_compatible('numpy') }}
     - python
 

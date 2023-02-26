@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# https://github.com/CGAL/cgal-swig-bindings/issues/77
-rm examples/python/test_polyline_simplification_2.py
+set -xe
 
 mkdir build && cd build
 
@@ -18,7 +17,7 @@ cmake ${CMAKE_ARGS} \
 cmake --build . --config Release
 cmake --build . --config Release --target install
 
-# This fails when cross-compiling, even if emulation is available 
+# This fails when cross-compiling, even if emulation is available
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
     DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib ctest --output-on-failure -j${CPU_COUNT}
 fi
