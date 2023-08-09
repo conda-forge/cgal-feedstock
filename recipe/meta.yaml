@@ -1,4 +1,5 @@
 {% set version = "5.5.3.post202307282311" %}
+# new bug-fix release https://github.com/CGAL/cgal-swig-bindings/releases/tag/v5.5.3.post202307282311
 {% set base_verson = ".".join(version.split(".")[:-1]) if version.split(".")[-1].startswith("post") else version %}
 
 package:
