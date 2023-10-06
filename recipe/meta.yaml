@@ -1,4 +1,6 @@
 {% set version = "5.6.post202310050933" %}
+# If `version` is changed but the base version is not, the build number must be incremented.
+# Reset the build number to 0 if the base version is changed, for example from 5.6 to 6.0.
 {% set base_verson = ".".join(version.split(".")[:-1]) if version.split(".")[-1].startswith("post") else version %}
 
 package:
@@ -10,7 +12,7 @@ source:
   sha256: bc7380405a5a083030dc90a33cda31077b0b7f4b470d7ce292474ab3c87246a3
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
