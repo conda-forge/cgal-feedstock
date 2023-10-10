@@ -30,11 +30,13 @@ requirements:
   host:
     - cgal-cpp {{ base_verson }}
     - libboost-devel
+    - gmp   # [unix]
+    - mpfr
+    - mpir  # [win]
     - numpy
     - python
   run:
     - cgal-cpp {{ base_verson }}
-    - mpfr
     - {{ pin_compatible('numpy') }}
     - python
 
