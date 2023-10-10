@@ -1,26 +1,28 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
-boost_cpp:
-- 1.78.0
 c_compiler:
 - clang
 c_compiler_version:
-- '15'
+- '16'
 channel_sources:
-- conda-forge/label/python_rc,conda-forge
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '15'
+- '16'
+gmp:
+- '6'
+libboost_devel:
+- '1.82'
 macos_machine:
 - x86_64-apple-darwin13.4.0
+mpfr:
+- '4'
 numpy:
 - '1.26'
 pin_run_as_build:
-  boost-cpp:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
@@ -33,4 +35,3 @@ zip_keys:
   - cxx_compiler_version
 - - python
   - numpy
-  - channel_sources
