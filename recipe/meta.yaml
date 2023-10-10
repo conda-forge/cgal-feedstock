@@ -12,7 +12,7 @@ source:
   sha256: bc7380405a5a083030dc90a33cda31077b0b7f4b470d7ce292474ab3c87246a3
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -29,10 +29,10 @@ requirements:
     - swig <4.1
   host:
     - cgal-cpp {{ base_verson }}
+    - libboost-devel
     - numpy
     - python
   run:
-    - boost-cpp
     - cgal-cpp {{ base_verson }}
     - mpfr
     - {{ pin_compatible('numpy') }}
