@@ -12,7 +12,7 @@ source:
   sha256: 1fb61b0e8ae677a355e48e5e14fa64eb06f670b8392b248405f6b5ac689395da
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -20,6 +20,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - cmake
     - eigen
