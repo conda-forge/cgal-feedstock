@@ -12,7 +12,7 @@ source:
   sha256: 50e38b67f800190cd3c95d89afaa607cd26b47621436d1af54c249bd33079ded
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -38,7 +38,6 @@ requirements:
     - python
   run:
     - cgal-cpp {{ base_verson }}
-    - {{ pin_compatible('numpy') }}
     - python
 
 test:
