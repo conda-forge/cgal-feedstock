@@ -12,7 +12,7 @@ source:
   sha256: 50e38b67f800190cd3c95d89afaa607cd26b47621436d1af54c249bd33079ded
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -31,9 +31,8 @@ requirements:
   host:
     - cgal-cpp {{ base_verson }}
     - libboost-devel
-    - gmp   # [unix]
+    - gmp
     - mpfr
-    - mpir  # [win]
     - numpy
     - python
   run:
