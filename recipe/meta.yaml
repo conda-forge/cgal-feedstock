@@ -31,9 +31,8 @@ requirements:
   host:
     - cgal-cpp {{ base_verson }}
     - libboost-devel
-    - gmp   # [unix]
+    - gmp
     - mpfr
-    - gmp  # [win]
     - numpy
     - python
   run:
