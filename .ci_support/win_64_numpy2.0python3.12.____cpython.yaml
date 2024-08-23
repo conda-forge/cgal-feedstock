@@ -11,7 +11,7 @@ cxx_compiler:
 gmp:
 - '6'
 libboost_devel:
-- '1.84'
+- '1.86'
 mpfr:
 - '4'
 numpy:
