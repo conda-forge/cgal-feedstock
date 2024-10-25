@@ -1,4 +1,4 @@
-{% set version = "6.0.post202410011635" %}
+{% set version = "6.0.1.post202410241521" %}
 # If `version` is changed but the base version is not, the build number must be incremented.
 # Reset the build number to 0 if the base version is changed, for example from 5.6 to 6.0.
 {% set base_verson = ".".join(version.split(".")[:-1]) if version.split(".")[-1].startswith("post") else version %}
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 96dfc70904461cd92e151a4bc134d22438c417e206f427830927687b08c52e26
+  sha256: e9847d302d72a6e8735c7cf083f3ed02d3a4dc5389bbee628fbded768ff522d8
 
 build:
   number: 0
