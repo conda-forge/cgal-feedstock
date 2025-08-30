@@ -1,13 +1,13 @@
 c_compiler:
-- vs2019
+- vs2022
 c_stdlib:
 - vs
 channel_sources:
-- conda-forge
+- conda-forge,conda-forge/label/python_rc
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs2019
+- vs2022
 gmp:
 - '6'
 libboost_devel:
@@ -21,9 +21,9 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.13.* *_cp313
+- 3.14.* *_cp314
 target_platform:
 - win-64
 zip_keys:
 - - python
-  - numpy
+  - channel_sources
