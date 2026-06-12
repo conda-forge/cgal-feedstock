@@ -19,7 +19,7 @@ docker_image:
 gmp:
 - '6'
 libboost_devel:
-- '1.88'
+- '1.90'
 mpfr:
 - '4'
 numpy:
