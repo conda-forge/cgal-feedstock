@@ -13,6 +13,14 @@ package:
 source:
   url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v${{ version }}.tar.gz
   sha256: e9847d302d72a6e8735c7cf083f3ed02d3a4dc5389bbee628fbded768ff522d8
+  patches:
+    # Use Eigen's own Eigen3Config.cmake (CONFIG mode) with a version range so
+    # that Eigen >= 5 (packaged as conda `eigen` 5.x, C++ version 3.5) is
+    # detected. Upstream `find_package(Eigen3 3.x.y)` fails with Eigen 5 because
+    # its config version file treats a single version as an exact match and the
+    # FindEigen3.cmake bundled by cgal-cpp only reads the version from the old
+    # header location.
+    - patches/0001-support-eigen5.patch
 
 build:
   number: 5
