@@ -23,7 +23,6 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
     - cmake
-    - eigen
     # https://github.com/conda-forge/cgal-feedstock/pull/75#issuecomment-1305660884
     - swig <4.1
     - if: build_platform != target_platform
@@ -38,6 +37,7 @@ requirements:
   host:
     - cgal-cpp ${{ base_version }}.*
     - libboost-devel
+    - eigen
     - gmp
     - mpfr
     - numpy
