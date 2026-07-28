@@ -22,6 +22,9 @@ source:
     # range + CONFIG mode so Eigen 5 is detected. Patch authored by
     # @diegoferigo-rai in conda-forge/cgal-feedstock#105.
     - patches/0001-support-eigen5.patch
+    # CGAL >= 6.1 changed the Constrained_triangulation_plus_2 subconstraint
+    # iterator value type; adapt the SWIG binding accordingly.
+    - patches/0002-support-cgal61-subconstraint-api.patch
 
 build:
   number: 4
