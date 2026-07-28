@@ -59,6 +59,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - jeongseok-meta
     - tadeu
     - lrineau
     - maxGimeno
