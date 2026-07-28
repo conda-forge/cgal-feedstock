@@ -23,8 +23,15 @@ source:
     # @diegoferigo-rai in conda-forge/cgal-feedstock#105.
     - patches/0001-support-eigen5.patch
     # CGAL >= 6.1 changed the Constrained_triangulation_plus_2 subconstraint
-    # iterator value type; adapt the SWIG binding accordingly.
+    # iterator value type; adapt the SWIG binding accordingly. Exact backport of
+    # upstream cgal-swig-bindings commits 85d0d0a7 and f59e35dc (version-guarded
+    # on CGAL_VERSION_NR so it still builds against CGAL < 6.1).
     - patches/0002-support-cgal61-subconstraint-api.patch
+    # CGAL >= 6.2 deprecated Polygon_mesh_processing::border_halfedges() and moved
+    # it to namespace CGAL, which both breaks the PMP:: call and makes the SWIG
+    # wrapper's generated call ambiguous via ADL. Route to the new function and
+    # give the wrapper a unique C++ name (still exposed as `border_halfedges`).
+    - patches/0003-support-cgal62-border-halfedges.patch
 
 build:
   number: 4
