@@ -4,18 +4,32 @@ set -xe
 
 mkdir build && cd build
 
-# When cross-compiling, CMake's FindPython cannot run the target interpreter to
-# discover its ABI. For free-threaded CPython (e.g. cp314t) it then falls back to
-# the default GIL-enabled ABI, searches for the python3.X headers/libs and misses
-# the python3.Xt ones that actually ship. FindPython fails with
-#   Could NOT find Python (missing: Python_INCLUDE_DIRS Interpreter Development.Module)
-# and the Python bindings are silently skipped, so the package ships without the
-# importable `CGAL` module. Point FindPython at the real host include directory
-# (python3.X or python3.Xt) so the ABI is detected and libpython is located.
-PYTHON_INCLUDE_ARGS=""
+# Free-threaded CPython (e.g. cp314t) under cross-compilation.
+#
+# CMake's FindPython cannot run the target interpreter when cross-compiling, so
+# it determines the ABI from Python_FIND_ABI, whose GIL element defaults to OFF
+# (GIL-enabled). It then searches for the python3.X headers/library, misses the
+# python3.Xt ones that actually ship, and fails with
+#   Could NOT find Python (missing: Interpreter Development.Module)
+# The Python bindings are silently skipped and the package ships without the
+# importable `CGAL` module (`import CGAL` fails the test on linux-aarch64,
+# linux-ppc64le and osx-arm64 cp314t). Native and GIL-enabled builds detect the
+# ABI by running / name-matching the interpreter and are unaffected.
+#
+# When cross-compiling a free-threaded host python, enable the no-GIL ABI and
+# hand FindPython the real host artifacts so it locates them.
+PYTHON_CROSS_ARGS=""
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == "1" ]]; then
-  PYTHON_INCLUDE_DIR=$(ls -d ${PREFIX}/include/python${PY_VER}*/ | head -n1)
-  PYTHON_INCLUDE_ARGS="-DPython_INCLUDE_DIR=${PYTHON_INCLUDE_DIR}"
+  PYTHON_INCLUDE_DIR=$(ls -d ${PREFIX}/include/python${PY_VER}*/ 2>/dev/null | head -n1)
+  case "${PYTHON_INCLUDE_DIR%/}" in
+    *t)
+      PYTHON_CROSS_ARGS="-DPython_FIND_ABI=ANY;ANY;ANY;ON -DPython_INCLUDE_DIR=${PYTHON_INCLUDE_DIR%/}"
+      PYTHON_LIBRARY=$(ls ${PREFIX}/lib/libpython${PY_VER}t*.so 2>/dev/null | head -n1)
+      if [[ -n "${PYTHON_LIBRARY}" ]]; then
+        PYTHON_CROSS_ARGS="${PYTHON_CROSS_ARGS} -DPython_LIBRARY=${PYTHON_LIBRARY}"
+      fi
+      ;;
+  esac
 fi
 
 cmake ${CMAKE_ARGS} \
@@ -26,7 +40,7 @@ cmake ${CMAKE_ARGS} \
   -DCMAKE_INSTALL_LIBDIR=lib \
   -DPython_EXECUTABLE=$PREFIX/bin/python \
   -DPython_ROOT_DIR=$PREFIX \
-  ${PYTHON_INCLUDE_ARGS} \
+  ${PYTHON_CROSS_ARGS} \
   -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
   ..
 
