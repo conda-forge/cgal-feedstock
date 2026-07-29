@@ -35,6 +35,13 @@ source:
 
 build:
   number: 4
+  # Cross-compiling free-threaded CPython (cp314t) to linux-aarch64 / linux-ppc64le
+  # is unsupported here: CMake's FindPython cannot run the target interpreter, so it
+  # fails to resolve the free-threaded Development.Module, silently drops the Python
+  # bindings, and the emulated `import CGAL` test then fails. Skip only those two
+  # cross free-threaded combinations; native linux-64 cp314t and every GIL-enabled
+  # build (including aarch64/ppc64le) are retained.
+  skip: true  # [is_freethreading and (aarch64 or ppc64le)]
 
 requirements:
   build:
