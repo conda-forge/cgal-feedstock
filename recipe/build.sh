@@ -23,8 +23,16 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == "1" ]]; then
   PYTHON_INCLUDE_DIR=$(ls -d ${PREFIX}/include/python${PY_VER}*/ 2>/dev/null | head -n1)
   case "${PYTHON_INCLUDE_DIR%/}" in
     *t)
-      PYTHON_CROSS_ARGS="-DPython_FIND_ABI=ANY;ANY;ANY;ON -DPython_INCLUDE_DIR=${PYTHON_INCLUDE_DIR%/}"
-      PYTHON_LIBRARY=$(ls ${PREFIX}/lib/libpython${PY_VER}t*.so 2>/dev/null | head -n1)
+      # Python_FIND_ABI is a <debug>;<pymalloc>;<unicode>;<gil-disabled> list.
+      # Its GIL element defaults to OFF and, since the target interpreter cannot
+      # be run under cross-compilation, FindPython can neither confirm the no-GIL
+      # ABI nor accept the interpreter (its abiflags are assumed "<none>"). Using
+      # ANY for every element makes the accepted-abiflags set contain BOTH the
+      # empty flag (so the un-runnable interpreter is accepted) and "t" (so the
+      # free-threaded headers/library match), which resolves the Interpreter and
+      # Development.Module components without executing anything.
+      PYTHON_CROSS_ARGS="-DPython_FIND_ABI=ANY;ANY;ANY;ANY -DPython_INCLUDE_DIR=${PYTHON_INCLUDE_DIR%/}"
+      PYTHON_LIBRARY=$(ls ${PREFIX}/lib/libpython${PY_VER}t*.so ${PREFIX}/lib/libpython${PY_VER}t*.dylib 2>/dev/null | head -n1)
       if [[ -n "${PYTHON_LIBRARY}" ]]; then
         PYTHON_CROSS_ARGS="${PYTHON_CROSS_ARGS} -DPython_LIBRARY=${PYTHON_LIBRARY}"
       fi
