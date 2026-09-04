@@ -1,0 +1,72 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 343dad3..50b4b3d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -205,13 +205,13 @@ if ( CGAL_FOUND AND ${CGAL_MAJOR_VERSION} GREATER 4 )
+     add_subdirectory(SWIG_CGAL/Box_intersection_d)
+     add_subdirectory(SWIG_CGAL/Advancing_front_surface_reconstruction)
+
+-    find_package(Eigen3 3.2.0) #(requires 3.2.0 or greater)
+-    if (EIGEN3_FOUND)
++    find_package(Eigen3 3.2...6 CONFIG) #(requires 3.2.0 or greater; range+CONFIG needed for Eigen>=5)
++    if (EIGEN3_FOUND OR Eigen3_FOUND)
+       include(CGAL_Eigen3_support)
+       add_subdirectory(SWIG_CGAL/Polygon_mesh_processing)
+     else()
+       message(STATUS "Eigen 3.2 or later was not found, Polygon_mesh_processing bindings will not be available")
+-    endif(EIGEN3_FOUND)
++    endif()
+
+     if(CGAL_VERSION VERSION_GREATER_EQUAL 6.0 AND CMAKE_CXX_COMPILER_ID STREQUAL AppleClang)
+       target_compile_options(CGAL_Kernel_cpp PUBLIC -mmacosx-version-min=10.13)
+diff --git a/SWIG_CGAL/Classification/CMakeLists.txt b/SWIG_CGAL/Classification/CMakeLists.txt
+index 00e0d65..c518dcd 100644
+--- a/SWIG_CGAL/Classification/CMakeLists.txt
++++ b/SWIG_CGAL/Classification/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
+
+-find_package(Eigen3 3.1.0)
++find_package(Eigen3 3.1...6 CONFIG)
+
+ find_package( Boost OPTIONAL_COMPONENTS serialization iostreams )
+
+@@ -22,7 +22,7 @@ else()
+   endif()
+ endif()
+
+-if (EIGEN3_FOUND )
++if (EIGEN3_FOUND OR Eigen3_FOUND)
+   include(CGAL_Eigen3_support)
+   set(LIBSTOLINKWITH ${LIBSTOLINKWITH} CGAL::Eigen3_support)
+   if (TBB_FOUND)
+diff --git a/SWIG_CGAL/Point_set_processing_3/CMakeLists.txt b/SWIG_CGAL/Point_set_processing_3/CMakeLists.txt
+index 9d0dcfc..2c32a0b 100644
+--- a/SWIG_CGAL/Point_set_processing_3/CMakeLists.txt
++++ b/SWIG_CGAL/Point_set_processing_3/CMakeLists.txt
+@@ -1,8 +1,8 @@
+ SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
+
+-find_package(Eigen3 3.1.0)
++find_package(Eigen3 3.1...6 CONFIG)
+
+-if (EIGEN3_FOUND)
++if (EIGEN3_FOUND OR Eigen3_FOUND)
+   include(CGAL_Eigen3_support)
+   set(LIBSTOLINKWITH ${LIBSTOLINKWITH} CGAL::Eigen3_support)
+   if (TBB_FOUND)
+diff --git a/SWIG_CGAL/Shape_detection/CMakeLists.txt b/SWIG_CGAL/Shape_detection/CMakeLists.txt
+index c565582..ae5b618 100644
+--- a/SWIG_CGAL/Shape_detection/CMakeLists.txt
++++ b/SWIG_CGAL/Shape_detection/CMakeLists.txt
+@@ -1,8 +1,8 @@
+ SET (LIBSTOLINKWITH CGAL_Kernel_cpp)
+
+-find_package(Eigen3 3.1.0)
++find_package(Eigen3 3.1...6 CONFIG)
+
+-if (EIGEN3_FOUND)
++if (EIGEN3_FOUND OR Eigen3_FOUND)
+   include(CGAL_Eigen3_support)
+   set(LIBSTOLINKWITH ${LIBSTOLINKWITH} CGAL::Eigen3_support)
+   if (TBB_FOUND)

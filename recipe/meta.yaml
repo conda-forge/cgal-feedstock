@@ -2,6 +2,11 @@
 # If `version` is changed but the base version is not, the build number must be incremented.
 # Reset the build number to 0 if the base version is changed, for example from 5.6 to 6.0.
 {% set base_verson = ".".join(version.split(".")[:-1]) if version.split(".")[-1].startswith("post") else version %}
+# The cgal-cpp C++ library and the cgal-swig-bindings release version diverged:
+# the bindings are still at 6.0.1, but cgal-cpp moved on to 6.2. Only cgal-cpp
+# >=6.1.2 has builds against libboost 1.90, so pin cgal-cpp independently of the
+# bindings version to unblock the libboost 1.90 migration.
+{% set cgal_cpp_version = "6.2" %}
 
 package:
   name: cgal
@@ -10,9 +15,33 @@ package:
 source:
   url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v{{ version }}.tar.gz
   sha256: e9847d302d72a6e8735c7cf083f3ed02d3a4dc5389bbee628fbded768ff522d8
+  patches:
+    # cgal-cpp 6.2 requires Eigen 5, but the bindings' CMake uses
+    # `find_package(Eigen3 3.x.y)`, which fails against Eigen >= 5 (its config
+    # version file treats a single version as an exact match). Use a version
+    # range + CONFIG mode so Eigen 5 is detected. Patch authored by
+    # @diegoferigo-rai in conda-forge/cgal-feedstock#105.
+    - patches/0001-support-eigen5.patch
+    # CGAL >= 6.1 changed the Constrained_triangulation_plus_2 subconstraint
+    # iterator value type; adapt the SWIG binding accordingly. Exact backport of
+    # upstream cgal-swig-bindings commits 85d0d0a7 and f59e35dc (version-guarded
+    # on CGAL_VERSION_NR so it still builds against CGAL < 6.1).
+    - patches/0002-support-cgal61-subconstraint-api.patch
+    # CGAL >= 6.2 deprecated Polygon_mesh_processing::border_halfedges() and moved
+    # it to namespace CGAL, which both breaks the PMP:: call and makes the SWIG
+    # wrapper's generated call ambiguous via ADL. Route to the new function and
+    # give the wrapper a unique C++ name (still exposed as `border_halfedges`).
+    - patches/0003-support-cgal62-border-halfedges.patch
 
 build:
-  number: 3
+  number: 4
+  # Cross-compiling free-threaded CPython (cp314t) to linux-aarch64 / linux-ppc64le
+  # is unsupported here: CMake's FindPython cannot run the target interpreter, so it
+  # fails to resolve the free-threaded Development.Module, silently drops the Python
+  # bindings, and the emulated `import CGAL` test then fails. Skip only those two
+  # cross free-threaded combinations; native linux-64 cp314t and every GIL-enabled
+  # build (including aarch64/ppc64le) are retained.
+  skip: true  # [is_freethreading and (aarch64 or ppc64le)]
 
 requirements:
   build:
@@ -23,20 +52,20 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - cmake
-    - eigen
     - make  # [unix]
     - ninja  # [win]
     # https://github.com/conda-forge/cgal-feedstock/pull/75#issuecomment-1305660884
     - swig <4.1
   host:
-    - cgal-cpp {{ base_verson }}
+    - cgal-cpp {{ cgal_cpp_version }}
+    - eigen
     - libboost-devel
     - gmp
     - mpfr
     - numpy
     - python
   run:
-    - cgal-cpp {{ base_verson }}
+    - cgal-cpp {{ cgal_cpp_version }}
     - python
 
 test:

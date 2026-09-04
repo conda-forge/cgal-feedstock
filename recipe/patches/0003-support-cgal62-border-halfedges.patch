@@ -1,0 +1,73 @@
+Support the CGAL >= 6.2 border_halfedges API move.
+
+CGAL 6.2 deprecated `CGAL::Polygon_mesh_processing::border_halfedges()` and moved
+the implementation to namespace `CGAL` (in <CGAL/boost/graph/border.h>). This
+breaks the Polygon_mesh_processing binding in two ways when building against
+cgal-cpp 6.2:
+
+  1. `PMP::border_halfedges(...)` no longer resolves
+     ("no member named 'border_halfedges' in namespace
+     'CGAL::Polygon_mesh_processing'").
+  2. Because `CGAL::border_halfedges` now lives directly in namespace `CGAL`, it
+     is found by ADL at the unqualified call SWIG generates for the wrapper,
+     making that call ambiguous with the wrapper itself
+     ("call to 'border_halfedges' is ambiguous").
+
+Fix both, keeping compatibility with CGAL < 6.2:
+
+  * Call the correct function through a `CGAL_VERSION_NR` guard (namespace `CGAL`
+    for >= 6.2, the deprecated `PMP::` name otherwise).
+  * Give the wrapped C++ function a unique name (`cgal_swig_border_halfedges`)
+    and use `%rename` so the target-language name stays `border_halfedges`; the
+    SWIG-generated call site is then unambiguous.
+
+This is a feedstock-local patch: upstream cgal-swig-bindings (latest tag
+v6.0.1.post202410241521) has adapted only up to CGAL 6.1 and has not yet
+addressed the 6.2 move of border_halfedges.
+
+diff --git a/SWIG_CGAL/Polygon_mesh_processing/CGAL_Polygon_mesh_processing.i b/SWIG_CGAL/Polygon_mesh_processing/CGAL_Polygon_mesh_processing.i
+index d8851b1..9ef8a72 100644
+--- a/SWIG_CGAL/Polygon_mesh_processing/CGAL_Polygon_mesh_processing.i
++++ b/SWIG_CGAL/Polygon_mesh_processing/CGAL_Polygon_mesh_processing.i
+@@ -143,7 +143,7 @@ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(compute_face_normal)
+ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(remove_connected_components)
+ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(keep_connected_components)
+ SWIG_CGAL_input_iterator_typemap_in_python_extra_function(area)
+-SWIG_CGAL_input_iterator_typemap_in_python_extra_function(border_halfedges)
++SWIG_CGAL_input_iterator_typemap_in_python_extra_function(cgal_swig_border_halfedges)
+ #endif
+ // typemaps for output iterators
+ SWIG_CGAL_output_iterator_typemap_in(Wrapper_iterator_helper<Polyhedron_3_Facet_handle_SWIG_wrapper>::output,
+@@ -189,6 +189,13 @@ SWIG_CGAL_python_vector_of_int_typecheck
+ // get the definition of CGAL_VERSION_NR
+ %include "CGAL/version.h"
+
++// CGAL 6.2 moved border_halfedges() from namespace CGAL::Polygon_mesh_processing
++// to namespace CGAL (BGL), where it is reachable by ADL. That makes the
++// unqualified call SWIG generates for the wrapper below ambiguous with
++// CGAL::border_halfedges. Wrap the function under a unique C++ name and expose
++// it to the target language under the original name "border_halfedges".
++%rename(border_halfedges) cgal_swig_border_halfedges;
++
+ %inline %{
+   #ifndef SWIG
+   #include <boost/shared_ptr.hpp>
+@@ -719,12 +726,17 @@ SWIG_CGAL_python_vector_of_int_typecheck
+   }
+
+ //   CGAL::Polygon_mesh_processing::border_halfedges() (4.8)
+-  void border_halfedges(Facet_range facet_range,
++  void cgal_swig_border_halfedges(Facet_range facet_range,
+                         Polyhedron_3_SWIG_wrapper& P,
+                         Halfedge_output_iterator out)
+   {
+     CGAL::set_halfedgeds_items_id(P.get_data());
++#if CGAL_VERSION_NR >= 1060200000
++    // CGAL >= 6.2: border_halfedges() moved to namespace CGAL (BGL).
++    CGAL::border_halfedges(make_range(facet_range), P.get_data(), out);
++#else
+     PMP::border_halfedges(make_range(facet_range), P.get_data(), out);
++#endif
+   }
+
+ %}
