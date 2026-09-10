@@ -1,19 +1,22 @@
-{% set version = "6.0.1.post202410241521" %}
 # If `version` is changed but the base version is not, the build number must be incremented.
 # Reset the build number to 0 if the base version is changed, for example from 5.6 to 6.0.
-{% set base_verson = ".".join(version.split(".")[:-1]) if version.split(".")[-1].startswith("post") else version %}
 # The cgal-cpp C++ library and the cgal-swig-bindings release version diverged:
 # the bindings are still at 6.0.1, but cgal-cpp moved on to 6.2. Only cgal-cpp
 # >=6.1.2 has builds against libboost 1.90, so pin cgal-cpp independently of the
 # bindings version to unblock the libboost 1.90 migration.
-{% set cgal_cpp_version = "6.2" %}
+schema_version: 1
+
+context:
+  version: 6.0.1.post202410241521
+  base_version: ${{ (version | split(".") | list)[:-1] | join(".") if (version | split(".") | list | length) > 3 else version }}
+  cgal_cpp_version: "6.2"
 
 package:
   name: cgal
-  version: {{ base_verson }}
+  version: ${{ base_version }}
 
 source:
-  url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v{{ version }}.tar.gz
+  url: https://github.com/CGAL/cgal-swig-bindings/archive/refs/tags/v${{ version }}.tar.gz
   sha256: e9847d302d72a6e8735c7cf083f3ed02d3a4dc5389bbee628fbded768ff522d8
   patches:
     # cgal-cpp 6.2 requires Eigen 5, but the bindings' CMake uses
@@ -34,30 +37,35 @@ source:
     - patches/0003-support-cgal62-border-halfedges.patch
 
 build:
-  number: 4
   # Cross-compiling free-threaded CPython (cp314t) to linux-aarch64 / linux-ppc64le
   # is unsupported here: CMake's FindPython cannot run the target interpreter, so it
   # fails to resolve the free-threaded Development.Module, silently drops the Python
   # bindings, and the emulated `import CGAL` test then fails. Skip only those two
   # cross free-threaded combinations; native linux-64 cp314t and every GIL-enabled
   # build (including aarch64/ppc64le) are retained.
-  skip: true  # [is_freethreading and (aarch64 or ppc64le)]
+  number: 5
+  skip: is_freethreading and (aarch64 or ppc64le)
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - numpy                                  # [build_platform != target_platform]
-    - {{ compiler('c') }}
-    - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - if: build_platform != target_platform
+      then: numpy
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler('cxx') }}
     - cmake
-    - make  # [unix]
-    - ninja  # [win]
+    - if: unix
+      then: make
+    - if: win
+      then: ninja
     # https://github.com/conda-forge/cgal-feedstock/pull/75#issuecomment-1305660884
     - swig <4.1
   host:
-    - cgal-cpp {{ cgal_cpp_version }}
+    - cgal-cpp ${{ cgal_cpp_version }}.*
     - eigen
     - libboost-devel
     - gmp
@@ -65,26 +73,30 @@ requirements:
     - numpy
     - python
   run:
-    - cgal-cpp {{ cgal_cpp_version }}
+    - cgal-cpp ${{ cgal_cpp_version }}.*
     - python
 
-test:
-  imports:
-    - CGAL
-    - CGAL.CGAL_Kernel
-    - CGAL.CGAL_Triangulation_2
-    - CGAL.CGAL_AABB_tree
-  commands:
-    - test -f ${PREFIX}/include/CGAL/AABB_tree.h  # [unix]
-    - if not exist %LIBRARY_INC%\CGAL\AABB_tree.h exit 1  # [win]
+tests:
+  - python:
+      imports:
+        - CGAL
+        - CGAL.CGAL_Kernel
+        - CGAL.CGAL_Triangulation_2
+        - CGAL.CGAL_AABB_tree
+      pip_check: false
+  - script:
+      - if: unix
+        then: test -f ${PREFIX}/include/CGAL/AABB_tree.h
+      - if: win
+        then: if not exist %LIBRARY_INC%\CGAL\AABB_tree.h exit 1
 
 about:
-  home: http://www.cgal.org/
   license: GPL-3.0-or-later
   license_file:
     - LICENSE.GPL
     - LICENSE.COMMERCIAL
   summary: Computational Geometry Algorithms Library
+  homepage: http://www.cgal.org/
 
 extra:
   recipe-maintainers:
