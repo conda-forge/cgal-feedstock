@@ -22,3 +22,8 @@ if errorlevel 1 exit 1
 :: Test.
 ctest --output-on-failure
 if errorlevel 1 exit 1
+
+cd ..
+set "CGAL_PYTHON_MODULE_VERSION=%PKG_VERSION%"
+"%PYTHON%" setup.py dist_info --output-dir "%SP_DIR%"
+if errorlevel 1 exit 1
