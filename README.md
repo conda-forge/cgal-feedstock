@@ -3,11 +3,15 @@ About cgal-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/cgal-feedstock/blob/main/LICENSE.txt)
 
-Home: http://www.cgal.org/
+Home: https://www.cgal.org/
 
 Package license: GPL-3.0-or-later
 
 Summary: Computational Geometry Algorithms Library
+
+Development: https://github.com/CGAL/cgal-swig-bindings
+
+Documentation: https://github.com/CGAL/cgal-swig-bindings/wiki
 
 Current build status
 ====================
