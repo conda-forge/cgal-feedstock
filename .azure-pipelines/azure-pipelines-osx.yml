@@ -8,16 +8,6 @@ jobs:
     vmImage: $(VMIMAGE)
   strategy:
     matrix:
-      osx_64_is_freethreadingfalsepython3.10.____cpython:
-        CONFIG: osx_64_is_freethreadingfalsepython3.10.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: skip
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: false
-        tools_install_dir: ~/miniforge3
       osx_64_is_freethreadingfalsepython3.11.____cpython:
         CONFIG: osx_64_is_freethreadingfalsepython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -60,16 +50,6 @@ jobs:
         tools_install_dir: ~/miniforge3
       osx_64_is_freethreadingtruepython3.14.____cp314t:
         CONFIG: osx_64_is_freethreadingtruepython3.14.____cp314t
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: skip
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: false
-        tools_install_dir: ~/miniforge3
-      osx_arm64_is_freethreadingfalsepython3.10.____cpython:
-        CONFIG: osx_arm64_is_freethreadingfalsepython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
