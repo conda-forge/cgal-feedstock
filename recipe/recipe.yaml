@@ -43,7 +43,7 @@ build:
   # bindings, and the emulated `import CGAL` test then fails. Skip only those two
   # cross free-threaded combinations; native linux-64 cp314t and every GIL-enabled
   # build (including aarch64/ppc64le) are retained.
-  number: 5
+  number: 6
   skip: is_freethreading and (aarch64 or ppc64le)
 
 requirements:
@@ -54,6 +54,10 @@ requirements:
       then: cross-python_${{ target_platform }}
     - if: build_platform != target_platform
       then: numpy
+    - if: build_platform != target_platform
+      then: setuptools
+    - if: build_platform != target_platform
+      then: wheel
     - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
     - ${{ compiler('cxx') }}
@@ -72,6 +76,8 @@ requirements:
     - mpfr
     - numpy
     - python
+    - setuptools
+    - wheel
   run:
     - cgal-cpp ${{ cgal_cpp_version }}.*
     - python
@@ -83,12 +89,9 @@ tests:
         - CGAL.CGAL_Kernel
         - CGAL.CGAL_Triangulation_2
         - CGAL.CGAL_AABB_tree
-      pip_check: false
+      pip_check: true
   - script:
-      - if: unix
-        then: test -f ${PREFIX}/include/CGAL/AABB_tree.h
-      - if: win
-        then: if not exist %LIBRARY_INC%\CGAL\AABB_tree.h exit 1
+      - python -c "from importlib.metadata import version; assert version('cgal') == '${{ base_version }}'"
 
 about:
   license: GPL-3.0-or-later
@@ -96,7 +99,9 @@ about:
     - LICENSE.GPL
     - LICENSE.COMMERCIAL
   summary: Computational Geometry Algorithms Library
-  homepage: http://www.cgal.org/
+  homepage: https://www.cgal.org/
+  repository: https://github.com/CGAL/cgal-swig-bindings
+  documentation: https://github.com/CGAL/cgal-swig-bindings/wiki
 
 extra:
   recipe-maintainers:

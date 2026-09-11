@@ -22,3 +22,7 @@ cmake --build . --config Release --target install
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]]; then
     DYLD_FALLBACK_LIBRARY_PATH=${PREFIX}/lib ctest --output-on-failure -j${CPU_COUNT}
 fi
+
+cd ..
+CGAL_PYTHON_MODULE_VERSION="${PKG_VERSION}" \
+    python setup.py dist_info --output-dir "${SP_DIR}"
