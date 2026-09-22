@@ -11,7 +11,7 @@ cxx_compiler:
 gmp:
 - '6'
 is_freethreading:
-- true
+- false
 libboost_devel:
 - '1.90'
 mpfr:
@@ -23,9 +23,10 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.14.* *_cp314t
+- 3.12.* *_cpython
 target_platform:
 - win-64
 zip_keys:
 - - python
+  - channel_sources
   - is_freethreading

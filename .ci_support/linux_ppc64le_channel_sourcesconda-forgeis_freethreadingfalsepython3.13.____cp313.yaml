@@ -19,7 +19,7 @@ docker_image:
 gmp:
 - '6'
 is_freethreading:
-- true
+- false
 libboost_devel:
 - '1.90'
 mpfr:
@@ -31,11 +31,12 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.14.* *_cp314t
+- 3.13.* *_cp313
 target_platform:
-- linux-64
+- linux-ppc64le
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
 - - python
+  - channel_sources
   - is_freethreading
